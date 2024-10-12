@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void solve(const string &digits, int index, string curr, vector<string> &ans, vector<string> &letters) {
+        if (index >= digits.size()) {
+            ans.push_back(curr);
+            return;
+        }
+        int num = digits[index] - '0';
+        string letter = letters[num];
+        for (int i = 0; i < letter.size(); i++) {
+            curr.push_back(letter[i]);
+            solve(digits, index + 1, curr, ans, letters);
+            curr.pop_back();
+        }
+    }
+
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if (digits.empty()) {
+            return ans;
+        }
+        int index = 0;
+        string curr = "";
+        vector<string> letters = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        solve(digits, index, curr, ans, letters);
+        return ans;
+    }
+};
